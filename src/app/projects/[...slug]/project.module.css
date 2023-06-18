@@ -1,0 +1,20 @@
+.artigo {
+  @apply flex w-full flex-col pt-40 font-inter items-center;
+}
+
+.artigo h1 {
+  @apply text-2xl font-bold pl-8 pr-8 text-white;
+}
+
+.artigo h2 {
+  @apply pl-10 pr-10
+}
+.artigo p {
+  @apply text-lg mb-8 mt-8 leading-8 whitespace-normal text-left tracking-normal font-medium pl-8 pr-8 text-white/90;
+}
+
+
+/* .artigo * {
+  @apply m-2;
+} */
+

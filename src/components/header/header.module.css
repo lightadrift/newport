@@ -1,0 +1,24 @@
+.card:hover::before {
+  opacity: 1;
+}
+.card::before {
+  transition: opacity 500ms;
+  opacity: 0;
+}
+
+.card_element::before {
+  background-image: radial-gradient(
+    100px circle at var(--mouse-x) var(--mouse-y),
+    rgba(252, 252, 252, 0.7),
+    transparent 40%
+  );
+  border-radius: inherit;
+  content: "";
+  height: 100%;
+  left: 0px;
+  position: absolute;
+  top: 0px;
+  transition: opacity 500ms;
+  width: 100%;
+  opacity: var(--opacity-2);
+}

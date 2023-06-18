@@ -1,0 +1,1 @@
+type AnimationKeys = 'idle' | 'run' | 'attack' | 'jump' | 'falling';
