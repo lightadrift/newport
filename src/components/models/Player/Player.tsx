@@ -1,8 +1,15 @@
 "use client";
 
 import { useFrame, useLoader, useThree } from "@react-three/fiber";
-import { useKeyboardControls } from "@react-three/drei";
-import { useRef, useState, useEffect, Ref, RefObject } from "react";
+import { useKeyboardControls, useHelper } from "@react-three/drei";
+import {
+  useRef,
+  useState,
+  useEffect,
+  Ref,
+  RefObject,
+  MutableRefObject,
+} from "react";
 import {
   TextureLoader,
   DoubleSide,
@@ -11,6 +18,10 @@ import {
   Vector3,
   SRGBColorSpace,
   Mesh,
+  BoxHelper,
+  PlaneHelper,
+  Object3D,
+  MeshLambertMaterial,
 } from "three";
 import { useSprite } from "../../../utils/useSprite";
 import {
@@ -106,7 +117,7 @@ export default function Player({ scale }: PlayerProps) {
   const meshRef = useRef<Mesh>(null);
   const t = useRef(0);
   let frametime = 100;
-
+  const centering = new Vector2(-0.02, -0.0025);
   //
   const [animation, setAnimation] = useState<AnimationKeys>("idle");
   const [subscribeKeys, getKeys] = useKeyboardControls();
@@ -117,12 +128,30 @@ export default function Player({ scale }: PlayerProps) {
   const tv = 17;
   const src = "./sprites/Warrior.png";
 
+  const geometry = meshRef.current?.geometry;
+
+  const center = geometry?.boundingBox?.getCenter(new Vector3());
+  const size = geometry?.boundingBox?.getSize(new Vector3());
   const texture = useLoader(TextureLoader, src);
-  texture.repeat.set(1 / th, 1 / tv);
-  texture.minFilter = NearestFilter;
-  texture.magFilter = NearestFilter;
-  texture.colorSpace = SRGBColorSpace;
-  // meshRef.current?.position.set(-0.1,0.04,-0.1)
+  const textureWidth = texture.image.width;
+  const textureHeight = texture.image.height;
+  const capsuleRadius = textureWidth  / 0.25;
+  const capsuleHeight = textureHeight / 0.2;
+  console.log(capsuleRadius, capsuleHeight);
+  if (size) {
+    const planeWidth = size!.x;
+    const planeHeight = size!.y;
+    const offsetX = -0.02 / planeWidth;
+    const offsetY = -0.0025 / planeHeight;
+    const center2 = new Vector2(offsetX, offsetY);
+    console.log(center2, "bb", size, offsetX, offsetY);
+    texture.repeat.set(1 / th, 1 / tv);
+    texture.minFilter = NearestFilter;
+    texture.magFilter = NearestFilter;
+    texture.colorSpace = SRGBColorSpace;
+    texture.center = center2;
+  }
+
   //
   const ctx = useRapier();
   const rapier = ctx.rapier;
@@ -208,14 +237,18 @@ export default function Player({ scale }: PlayerProps) {
   //     }
   //   );
   // }, []);
+  useEffect(() => {
+    console.log(meshRef.current?.position, player.current?.translation());
+  }, []);
+  const p = meshRef as unknown as MutableRefObject<Object3D<Event>>;
 
+  useHelper(p, BoxHelper, "blue");
   usePlayerAnimation(setAnimation, grounded);
 
   useSprite(texture, 140, 6, 17, animation, animations, true);
 
   // CONSERTAR MOVIMENTO INVERTIDO
   useFrame((_, delta) => {
-
     // look at sprite
     if (meshRef.current && three.camera) {
       meshRef.current.lookAt(three.camera.position);
@@ -250,18 +283,18 @@ export default function Player({ scale }: PlayerProps) {
   return (
     <>
       <RigidBody
+        position={[0, 1, 0]}
         colliders={false}
         dominanceGroup={1}
         mass={10}
         // enabledRotations={[false, false, false]}
         ref={player}
-        position={[1, 1, 1]}
         enabledRotations={[false, false, false]}
       >
-        <CapsuleCollider args={[0.3, 0.22]}>
+        <CapsuleCollider  args={[0.23, 0.2]}>
           <mesh
             renderOrder={1}
-            scale={[1.2, 1.2, 1.2]}
+            // scale={[1.2, 1.2, 1.2]}
             ref={meshRef}
             castShadow
           >
@@ -271,7 +304,6 @@ export default function Player({ scale }: PlayerProps) {
               map={texture}
               transparent
               alphaTest={0.5}
-              
             />
           </mesh>
         </CapsuleCollider>

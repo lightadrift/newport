@@ -13,25 +13,11 @@ import Ground from "../models/ground";
 
 import { Pokemon } from "@models/Scenarios/Pokemon";
 import { Model } from "@models/Scenarios/Test";
-import { useLoader } from "@react-three/fiber";
-import {
-  DoubleSide,
-  NearestFilter,
-  SRGBColorSpace,
-  TextureLoader,
-} from "three";
+
 import Player from "@models/Player/Player";
-import Test from "@models/Player/test";
 
 export default function Scene() {
-  const [cameraPosition, setCameraPosition] = useState([-6, 3.9, 6.21]);
-  const src = "./sprites/Warrior.png";
 
-  const texture = useLoader(TextureLoader, src);
-  texture.repeat.set(1 / 6, 1 / 17);
-  texture.minFilter = NearestFilter;
-  texture.magFilter = NearestFilter;
-  texture.colorSpace = SRGBColorSpace;
   return (
     <>
       <Suspense fallback={null}>
@@ -44,7 +30,7 @@ export default function Scene() {
           position={[5, 1, 0]}
           getObjectsByProperty={undefined}
         />
-
+      
         <Player scale={[20,20,20]}/>
         {/* <Test /> */}
         <Box scale={0.5} castShadow receiveShadow position={[0, 0.5, 1]}>

@@ -11,19 +11,23 @@ import { KeyWrapper } from "components/control_wrapper";
 
 export default function World() {
   return (
-    <Canvas style={{ width: "100%", height: "100vh" }} shadows={{ type: PCFSoftShadowMap}} shadow-bias={0.0001}>
+    <Canvas
+      style={{ width: "100%", height: "100vh" }}
+      shadows={{ type: PCFSoftShadowMap }}
+    >
       <color attach="background" args={["#c1ddef"]} />
       <Perf />
       <Stats />
-      <ambientLight intensity={0.3} />
+      <ambientLight intensity={0.2} />
       {/* <directionalLight intensity={1} position={[1, 1, 1]} /> */}
       <directionalLight
-      color={"red"}
-        position={[2,1,0]}
+        color={"red"}
+        position={[2, 1, 0]}
         intensity={2}
         castShadow
         shadow-mapSize-height={512}
-        shadow-mapSize-width={512 }
+        shadow-mapSize-width={512}
+        shadow-bias={-0.0001}
       />
       <Physics debug gravity={[0, -9.08, 0]}>
         <KeyWrapper>

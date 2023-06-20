@@ -1,5 +1,17 @@
 import { useState } from "react";
 
+const itens = {
+  "/": {
+    name: "home",
+  },
+  "/blog": {
+    name: "blog",
+  },
+  "/about": {
+    name: "about",
+  },
+};
+
 function MobileHeader() {
   const [isOpen, setIsOpen] = useState(false);
   let color = "#ffffff";
@@ -7,7 +19,7 @@ function MobileHeader() {
     <>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="m-2 rounded-full bg-surface_dark_color p-2 active:scale-90"
+        className="m-2 mr-4 rounded-full bg-surface_dark_color p-2 active:scale-90"
       >
         <svg
           width="24px"
@@ -24,8 +36,13 @@ function MobileHeader() {
           />
         </svg>
       </button>
-      <dialog open={isOpen} className=" absolute top-2 -right-[50%] p-0  ">
-        aaaa
+      <dialog open={isOpen} className=" absolute -right-[50%] top-2 p-0 rounded-md ">
+        <nav className=" flex p-2 gap-5 ">
+          {Object.entries(itens).map(([path, { name }]) => {
+            // const isActive = path === pathname;
+            return <div key={path}>{name}</div>;
+          })}
+        </nav>
       </dialog>
     </>
   );

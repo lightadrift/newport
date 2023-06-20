@@ -37,7 +37,7 @@ function Projects() {
   return (
     <>
       <div className=" relative flex w-full place-content-start p-2">
-        <div className=" grid grid-cols-[repeat(2,46vw)] grid-rows-[25vh] ">
+        <div className=" grid grid-cols-2  ">
           {Data.map((item, index) => {
             return (
               <div

@@ -10,8 +10,9 @@ const nextConfig = {
   // pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   reactStrictMode: true,
   experimental: {
+    webpackBuildWorker: true,
     // mdxRs: true,
-    // swcMinify: true  
+    swcMinify: true  
   },
   images: {
     remotePatterns: [
