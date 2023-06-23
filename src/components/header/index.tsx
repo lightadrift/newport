@@ -84,7 +84,7 @@ export function Header() {
 
   let pathname = usePathname() || "/";
   return (
-    <div className="relative mt-2 flex w-full justify-end h-14 mb-10 ">
+    <div className="relative mt-2 flex w-full justify-end h-14 mb-10 overflow-hidden ">
       {isMounted ? (
         width! > 1200 && width != undefined ? (
           <animated.div

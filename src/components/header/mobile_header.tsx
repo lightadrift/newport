@@ -1,5 +1,11 @@
 import { useState } from "react";
+import { animated, useSpring } from "@react-spring/web";
+import { Globals } from "@react-spring/web";
+import { config } from "process";
 
+Globals.assign({
+  frameLoop: "always",
+});
 const itens = {
   "/": {
     name: "home",
@@ -15,11 +21,56 @@ const itens = {
 function MobileHeader() {
   const [isOpen, setIsOpen] = useState(false);
   let color = "#ffffff";
+  const [props, api] = useSpring(() => ({
+    from: {
+      opacity: 0,
+      // x: 10,
+    },
+  }));
   return (
     <>
+      <animated.dialog
+        style={{ ...props }}
+        open={isOpen}
+        className=" relative right-[200px]  rounded-md p-0 "
+      >
+        <nav className=" flex gap-5 p-2 ">
+          {Object.entries(itens).map(([path, { name }]) => {
+            // const isActive = path === pathname;
+            return (
+              <div className=" hover:cursor-pointer" key={path}>
+                {name}
+              </div>
+            );
+          })}
+        </nav>
+      </animated.dialog>
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="m-2 mr-4 rounded-full bg-surface_dark_color p-2 active:scale-90"
+        onClick={() => {
+          setIsOpen(!isOpen);
+          if (isOpen === false) {
+            api.start({
+              to: {
+                opacity: 1,
+                // x: 0,
+              },
+              config: {
+                duration: 300,
+              },
+            });
+          } else {
+            api.start({
+              to: {
+                opacity: 0,
+                // x: 10,
+              },
+              config: {
+                duration: 300,
+              },
+            });
+          }
+        }}
+        className="m-2 mr-4 rounded-full bg-surface_dark_color p-2 transition-all hover:scale-110 active:scale-90"
       >
         <svg
           width="24px"
@@ -36,14 +87,6 @@ function MobileHeader() {
           />
         </svg>
       </button>
-      <dialog open={isOpen} className=" absolute -right-[50%] top-2 p-0 rounded-md ">
-        <nav className=" flex p-2 gap-5 ">
-          {Object.entries(itens).map(([path, { name }]) => {
-            // const isActive = path === pathname;
-            return <div key={path}>{name}</div>;
-          })}
-        </nav>
-      </dialog>
     </>
   );
 }

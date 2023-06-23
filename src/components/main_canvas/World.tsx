@@ -18,7 +18,7 @@ export default function World() {
       <color attach="background" args={["#c1ddef"]} />
       <Perf />
       <Stats />
-      <ambientLight intensity={0.2} />
+      <ambientLight intensity={0.18} />
       {/* <directionalLight intensity={1} position={[1, 1, 1]} /> */}
       <directionalLight
         color={"red"}
