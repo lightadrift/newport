@@ -14,13 +14,13 @@ const Data = [
     main_stack: "typescript",
   },
   {
-    title: "Vaulthief",
+    title: "Bots",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pretium justo non lacus elementum, eget imperdiet arcu facilisis. Quisque venenatis nec sapien finibus bibendum.",
     main_stack: "typescript",
   },
   {
-    title: "Vaulthief",
+    title: "Interpretes Studies",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque pretium justo non lacus elementum, eget imperdiet arcu facilisis. Quisque venenatis nec sapien finibus bibendum.",
     main_stack: "typescript",
@@ -36,7 +36,7 @@ const Data = [
 function Projects() {
   return (
     <>
-      <div className=" relative flex w-full place-content-start p-2">
+      <div className=" relative flex w-full place-content-start p-2 pl-8 pr-8">
         <div className=" grid grid-cols-2  ">
           {Data.map((item, index) => {
             return (

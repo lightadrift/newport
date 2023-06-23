@@ -1,7 +1,7 @@
 import { Header } from "components/header";
 import "../styles/globals.css";
 import { Inter } from "next/font/google";
-// font causando memory leak
+// font causando memory leak eu acho
 
 export const metadata = {
   title: "Ronaldo Monteiro",

@@ -11,6 +11,7 @@ const nextConfig = {
   reactStrictMode: true,
   experimental: {
     webpackBuildWorker: true,
+    serverActions: false,
     // mdxRs: true,
     swcMinify: true  
   },

@@ -11,9 +11,6 @@ import { RigidBody, CuboidCollider } from "@react-three/rapier";
 import { Suspense, useState } from "react";
 import Ground from "../models/ground";
 
-import { Pokemon } from "@models/Scenarios/Pokemon";
-import { Model } from "@models/Scenarios/Test";
-
 import Player from "@models/Player/Player";
 
 export default function Scene() {
